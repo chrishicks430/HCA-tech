@@ -1,13 +1,20 @@
 import React from 'react';
 import './styles.css'
 import { useState, useEffect } from "react";
-import PetTable from './PetTable.jsx';
 
 const App = () => {
+    //using useState hook to implement state, initializing initial state as an empty array
     const [allPets, setAllPets] = useState([])
+    
+    //delete functionality to assign to a button later on rerendering page on state change
+    // eslint-disable-next-line no-unused-vars
     const handleDelete = (index,e) => {
         setAllPets(allPets.filter((v,i) => i !== index));
     }
+
+    //use effect hook to leverage PetStore API, first receiving available pets
+    //once available pets received, ensure all pets to be charted have defined values in requested areas
+    //reset state of application to received and filtered data
     useEffect(() =>{
         fetch('https://petstore.swagger.io/v2/pet/findByStatus?status=available')
         .then((res)=> res.json())
@@ -17,15 +24,10 @@ const App = () => {
         .then(data=> setAllPets(data))
         .catch(err => console.log(err))
     },[])
-    console.log(allPets)
-    // const petData = allPets.filter(data =>{
-    //     return data.category && data.name
-    // })
-    // console.log(petData)
+    //map over our array from our new state to create rows with info needed (name, category, status)
+    //using the index of the state as unique key in order to be able to find and delete pets when needed
+    //add a button to each row and connect handleDelete function created above
     const tableData = allPets.map((data,index) => {
-        //console.log(data.category.name)
-        // const randomNumber = Math.floor(Math.random()*1000000)
-        //console.log(randomNumber)
             return (
                 <tr className = 'row' id = {index} key = {index}>
                     <td>{data.name}</td>
@@ -35,6 +37,9 @@ const App = () => {
                 </tr>
             )
         })
+
+    //create the table with appropriate headings and pass in tableData variable from above to fill each row
+
     return (
          <div>
             <h1 className = "table-title">Pet Table</h1>
