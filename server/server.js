@@ -7,14 +7,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-//serve HTML
-app.get('/', (req, res) => {
-    return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
-  });
+// //serve HTML
+// app.get('/', (req, res) => {
+//     return res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+//   });
 
-  //serve static build files
-app.use('/build', express.static(path.join(__dirname, '../build')));
+//   //serve static build files
+// app.use('/build', express.static(path.join(__dirname, '../build')));
+app.use(express.static(path.join(__dirname, '../build')));
 
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
 
 //error 404 handler
 app.use((req, res) => {

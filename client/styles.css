@@ -4,9 +4,19 @@
 
 .main-table {
     width: 100%;
-    background-color: rgba(150, 165, 137,.2);
+    background-color: rgba(150, 165, 137,.1);
+    padding: 10px;
 }
 
 .body-table{
     text-align: center;
+    font-size: 18px;
 }
+
+.column-names {
+    font-size: 20px;
+}
+table {
+    border: 1px solid black
+}
+

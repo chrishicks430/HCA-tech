@@ -27,7 +27,7 @@ const App = () => {
         // const randomNumber = Math.floor(Math.random()*1000000)
         //console.log(randomNumber)
             return (
-                <tr id = {index} key = {index}>
+                <tr className = 'row' id = {index} key = {index}>
                     <td>{data.name}</td>
                     <td>{data.category.name}</td>
                     <td>{data.status}</td>
